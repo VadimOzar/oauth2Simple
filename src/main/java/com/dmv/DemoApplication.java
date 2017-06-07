@@ -21,11 +21,4 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
-
-    @Autowired
-    public void authenticationManager(AuthenticationManagerBuilder builder, UserRepository repository) throws Exception {
-        if(repository.count() == 0)
-            repository.save(new User("user","user", Arrays.asList(new Role("USER"))));
-        builder.userDetailsService(username -> new CustomUserDetails(repository.findOneByUsername(username)));
-    }
 }

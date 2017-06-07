@@ -8,10 +8,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/h2-**").permitAll()
                 .anyRequest().authenticated();
+        http.headers().frameOptions().disable(); //for h2 console work;
     }
 }
